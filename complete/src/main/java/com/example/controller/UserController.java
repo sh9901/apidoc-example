@@ -5,6 +5,7 @@ import com.example.service.IUserService;
 import com.example.vo.request.NewUserRequest;
 import com.example.vo.request.UserFilterRequest;
 import com.example.vo.request.UserLoginRequest;
+import com.example.vo.response.ResultVO;
 import com.example.vo.response.UserDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +38,12 @@ public class UserController {
         return userService.queryUserDetail(userId);
     }
 
+    /**
+     * 使用ResponseControllerAdvice之后ResultVO<>返回类型可以去掉
+     *
+     * @param filter
+     * @return
+     */
     @PostMapping("/user/query")
     List<UserDetailResponse> queryUsers(@Valid @RequestBody UserFilterRequest filter) {
         return userService.queryUsers(filter);
