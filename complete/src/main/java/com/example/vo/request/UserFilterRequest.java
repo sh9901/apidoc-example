@@ -1,5 +1,7 @@
 package com.example.vo.request;
 
+import com.example.constraint.CaseMode;
+import com.example.constraint.CheckCase;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -20,5 +22,7 @@ public class UserFilterRequest {
 
     @NotNull(message = "筛选用户名不可以为空")
     @ApiModelProperty(required = true)
+    @Size(min = 2, max = 8, message = "长度限制")
+    @CheckCase(value = CaseMode.UPPER, message = "userName需要大写")
     private String userName;
 }
