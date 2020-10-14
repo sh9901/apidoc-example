@@ -7,10 +7,14 @@ import com.example.vo.request.UserFilterRequest;
 import com.example.vo.request.UserLoginRequest;
 import com.example.vo.response.UserDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
+@Validated
 @RestController
 public class UserController {
     @Autowired
@@ -29,12 +33,12 @@ public class UserController {
      * @return
      */
     @GetMapping("/user/{userId}")
-    UserDetailResponse queryUser(@PathVariable int userId) {
+    UserDetailResponse queryUser(@Positive @PathVariable int userId) {
         return userService.queryUserDetail(userId);
     }
 
     @PostMapping("/user/query")
-    List<UserDetailResponse> queryUsers(@RequestBody UserFilterRequest filter) {
+    List<UserDetailResponse> queryUsers(@Valid @RequestBody UserFilterRequest filter) {
         return userService.queryUsers(filter);
     }
 

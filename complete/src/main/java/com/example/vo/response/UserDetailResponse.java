@@ -1,6 +1,7 @@
 package com.example.vo.response;
 
 import com.example.model.Dept;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
