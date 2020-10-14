@@ -1,6 +1,8 @@
 package com.example.common;
 
+import com.example.exception.CheckEnumException;
 import com.example.vo.response.ResultVO;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -40,6 +42,25 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResultVO<String> MissingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        return new ResultVO<>(ResultCode.VALIDATE_FAILED, e.getMessage(), null);
+    }
+
+    /**
+     * CheckEnumExceptionHandler 用于传值不属于枚举值时报错处理
+     * CheckEnum没有生效，直接走到InvalidFormatExceptionHandler去了？？
+     * 使用enum声明的枚举值被反序列化自动检查了，不需要再自定义？？
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(CheckEnumException.class)
+    public ResultVO<String> CheckEnumExceptionHandler(CheckEnumException e) {
+        return new ResultVO<>(ResultCode.ItemNotImEnum, e.getMessage(), null);
+    }
+
+    @ExceptionHandler(InvalidFormatException.class)
+    public ResultVO<String> InvalidFormatExceptionHandler(InvalidFormatException e) {
+        //TODO-e.getMessage 给出了内部异常
         return new ResultVO<>(ResultCode.VALIDATE_FAILED, e.getMessage(), null);
     }
 }

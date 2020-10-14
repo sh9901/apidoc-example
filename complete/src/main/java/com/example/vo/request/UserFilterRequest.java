@@ -2,6 +2,8 @@ package com.example.vo.request;
 
 import com.example.constraint.CaseMode;
 import com.example.constraint.CheckCase;
+import com.example.constraint.CheckEnum;
+import com.example.enums.RoleEnum;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -24,9 +26,17 @@ public class UserFilterRequest {
     @Max(value = 60, message = "最大年龄不能大于60")
     private int age;
 
+    /**
+     * 类似枚举值validation需要自定义
+     */
     @ApiModelProperty(required = true, example = "yellow", allowableValues = "yellow,white,black")
     @NotNull(message = "查询条件肤色不能为空")
     private String skinColor;
+
+
+    @CheckEnum(anyOf = {RoleEnum.ADMIN, RoleEnum.MANAGER, RoleEnum.OPERATOR})
+    @NotNull(message = "用户角色不能为空")
+    private RoleEnum roleEnum;
 
     @NotNull(message = "筛选用户名不可以为空")
     @ApiModelProperty(required = true)
