@@ -47,7 +47,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserDetailResponse> searchUsers(String userName, int gender) {
+    public List<UserDetailResponse> searchUsers(String userName,
+                                                int gender,
+                                                int age_min,
+                                                int age_max,
+                                                String skinColor) {
         return null;
     }
 

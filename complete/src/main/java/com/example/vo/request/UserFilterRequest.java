@@ -20,6 +20,14 @@ public class UserFilterRequest {
     @ApiModelProperty(required = true, example = "1", allowableValues = "0,1")
     private int gender;
 
+    @Min(value = 18, message = "最小年龄不能小于18")
+    @Max(value = 60, message = "最大年龄不能大于60")
+    private int age;
+
+    @ApiModelProperty(required = true, example = "yellow", allowableValues = "yellow,white,black")
+    @NotNull(message = "查询条件肤色不能为空")
+    private String skinColor;
+
     @NotNull(message = "筛选用户名不可以为空")
     @ApiModelProperty(required = true)
     @Size(min = 2, max = 8, message = "用户名长度限制[2-8]")

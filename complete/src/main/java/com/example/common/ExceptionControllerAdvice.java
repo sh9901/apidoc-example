@@ -3,9 +3,12 @@ package com.example.common;
 import com.example.vo.response.ResultVO;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import javax.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
@@ -28,5 +31,15 @@ public class ExceptionControllerAdvice {
     public ResultVO<String> MethodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException e) {
         // 提取错误提示信息进行返回
         return new ResultVO<>(ResultCode.VALIDATE_FAILED, e.getName() + "类型不匹配", null);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResultVO<String> ConstraintViolationExceptionHandler(ConstraintViolationException e) {
+        return new ResultVO<>(ResultCode.VALIDATE_FAILED, e.getMessage(), null);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResultVO<String> MissingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        return new ResultVO<>(ResultCode.VALIDATE_FAILED, e.getMessage(), null);
     }
 }

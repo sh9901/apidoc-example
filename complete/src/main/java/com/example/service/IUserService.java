@@ -14,7 +14,11 @@ public interface IUserService {
 
     List<UserDetailResponse> queryUsers(UserFilterRequest filterRequest);
 
-    List<UserDetailResponse> searchUsers(String userName, int gender);
+    List<UserDetailResponse> searchUsers(String userName,
+                                         int gender,
+                                         int age_min,
+                                         int age_max,
+                                         String skinColor);
 
     /**
      * 用户登录成功返回用户详情
