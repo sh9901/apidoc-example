@@ -23,9 +23,9 @@ public class CheckEnumValidator implements ConstraintValidator<CheckEnum, RoleEn
     public boolean isValid(RoleEnum value, ConstraintValidatorContext context) {
 //        return value == null || Arrays.asList(roles).contains(value);
         if (value == null || Arrays.asList(roles).contains(value)) {
-            throw new CheckEnumException(value + "不在枚举中" + Arrays.asList(roles).toString());
-        } else {
             return true;
+        } else {
+            throw new CheckEnumException(value + "不在枚举中" + Arrays.asList(roles).toString());
         }
     }
 }
