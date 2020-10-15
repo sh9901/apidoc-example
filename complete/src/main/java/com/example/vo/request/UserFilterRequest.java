@@ -17,8 +17,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Data
 @ApiModel(description = "用户筛选请求")
 public class UserFilterRequest {
-    @Min(value = 0, message = "性别只支持0-女,1-男")
-    @Max(value = 1, message = "性别只支持0-女,1-男")
+    @Min(value = 0, message = "性别最小取值为0-女")
+    @Max(value = 1, message = "性别最大取值为1-男")
     @ApiModelProperty(required = true, example = "1", allowableValues = "0,1")
     private int gender;
 
@@ -28,13 +28,19 @@ public class UserFilterRequest {
 
     /**
      * 类似枚举值validation需要自定义
+     * 应该用enum类型的枚举值
      */
     @ApiModelProperty(required = true, example = "yellow", allowableValues = "yellow,white,black")
     @NotNull(message = "查询条件肤色不能为空")
     private String skinColor;
 
 
-    @CheckEnum(anyOf = {RoleEnum.ADMIN, RoleEnum.MANAGER, RoleEnum.OPERATOR})
+    /**
+     * enum类型不需要自定义check
+     * :@CheckEnum(anyOf = {RoleEnum.ADMIN, RoleEnum.MANAGER, RoleEnum.OPERATOR})
+     * enum 类型不需要填写allowableValues,api-doc中可以自动获取
+     */
+    @ApiModelProperty(required = true, example = "OPERATOR")
     @NotNull(message = "用户角色不能为空")
     private RoleEnum roleEnum;
 
