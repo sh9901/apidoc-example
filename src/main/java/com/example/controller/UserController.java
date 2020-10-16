@@ -3,10 +3,9 @@ package com.example.controller;
 
 import com.example.constraint.CaseMode;
 import com.example.constraint.CheckCase;
+import com.example.constraint.OnAdd;
 import com.example.service.IUserService;
-import com.example.vo.request.NewUserRequest;
-import com.example.vo.request.UserFilterRequest;
-import com.example.vo.request.UserLoginRequest;
+import com.example.vo.request.*;
 import com.example.vo.response.UserDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,8 +28,27 @@ public class UserController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping("/user/")
-    boolean addUser(@RequestBody NewUserRequest user) {
+    boolean addUser(@Valid @RequestBody UserAddRequest user) {
         return userService.addUser(user);
+    }
+
+    @ApiOperation(value = "更新用户")
+    @PutMapping("/user/")
+    boolean updateUser(@Valid @RequestBody UserUpdateRequest user) {
+        return userService.updateUser(user);
+    }
+
+    @ApiOperation(value = "共用UserRequest添加用户")
+    @PostMapping("/user/add")
+    @Validated(OnAdd.class)
+    boolean addUser(@Valid @RequestBody UserRequest user) {
+        return true;
+    }
+
+    @ApiOperation(value = "共用UserRequest修改用户")
+    @PutMapping("/user/update")
+    boolean updateUser(@Valid @RequestBody UserRequest user) {
+        return true;
     }
 
     /**
@@ -79,7 +97,7 @@ public class UserController {
 
     @ApiOperation("用户登录")
     @PostMapping("/user/login")
-    UserDetailResponse loginUser(@RequestBody UserLoginRequest loginUser) {
+    UserDetailResponse loginUser(@Valid @RequestBody UserLoginRequest loginUser) {
         return userService.loginUser(loginUser);
     }
 }

@@ -6,10 +6,7 @@ import com.example.constraint.CheckEnum;
 import com.example.enums.RoleEnum;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,9 +19,11 @@ public class UserFilterRequest {
     @ApiModelProperty(required = true, example = "1", allowableValues = "0,1")
     private int gender;
 
-    @Min(value = 18, message = "最小年龄不能小于18")
-    @Max(value = 60, message = "最大年龄不能大于60")
-    private int age;
+    @Positive(message = "查询范围年龄最小值必填")
+    private int minAge;
+
+    @Positive(message = "查询范围年龄最大值必填")
+    private int maxAge;
 
     /**
      * 类似枚举值validation需要自定义
@@ -46,7 +45,7 @@ public class UserFilterRequest {
 
     @NotNull(message = "筛选用户名不可以为空")
     @ApiModelProperty(required = true)
-    @Size(min = 2, max = 8, message = "用户名长度限制[2-8]")
+    @Size(min = 2, max = 5, message = "用户名长度限制[2-5]")
     @CheckCase(value = CaseMode.UPPER, message = "userName需要大写")
     private String userName;
 }

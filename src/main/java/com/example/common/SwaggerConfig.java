@@ -26,7 +26,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("SpringBoot使用Swagger构建api文档")
+                .title("apiDoc-example")
                 .description("demo")
                 .version("1.0")
                 .build();

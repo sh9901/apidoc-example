@@ -2,9 +2,10 @@ package com.example.service.impl;
 
 import com.example.model.Dept;
 import com.example.service.IUserService;
-import com.example.vo.request.NewUserRequest;
+import com.example.vo.request.UserAddRequest;
 import com.example.vo.request.UserFilterRequest;
 import com.example.vo.request.UserLoginRequest;
+import com.example.vo.request.UserUpdateRequest;
 import com.example.vo.response.UserDetailResponse;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,13 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
     @Override
-    public boolean addUser(NewUserRequest userRequest) {
-        return false;
+    public boolean addUser(UserAddRequest userRequest) {
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(UserUpdateRequest userRequest) {
+        return true;
     }
 
     @Override
@@ -47,11 +53,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserDetailResponse> searchUsers(String userName,
-                                                int gender,
-                                                int age_min,
-                                                int age_max,
-                                                String skinColor) {
+    public List<UserDetailResponse> searchUsers(
+            String userName, int gender, int age_min, int age_max, String skinColor) {
         return null;
     }
 
