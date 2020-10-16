@@ -4,6 +4,7 @@ package com.example.controller;
 import com.example.constraint.CaseMode;
 import com.example.constraint.CheckCase;
 import com.example.constraint.OnAdd;
+import com.example.constraint.OnUpdate;
 import com.example.service.IUserService;
 import com.example.vo.request.*;
 import com.example.vo.response.UserDetailResponse;
@@ -47,7 +48,7 @@ public class UserController {
 
     @ApiOperation(value = "共用UserRequest修改用户")
     @PutMapping("/user/update")
-    boolean updateUser(@Valid @RequestBody UserRequest user) {
+    boolean updateUser(@Validated(OnUpdate.class) @RequestBody UserRequest user) {
         return true;
     }
 
